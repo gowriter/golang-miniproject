@@ -21,7 +21,8 @@ jobs:
           guid: ${{ secrets.NEW_RELIC_DEPLOYMENT_ENTITY_GUID_CP }}
           version: "${{ env.RELEASE_VERSION }}"
           commit: "${{ github.sha }}"
+          changelog: "https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md"
           region: "EU"
-          description: "Automated Release via Github Actions"
+          description: "${{ github.event.release.body }}"
           deploymentType: "ROLLING"
           user: "${{ github.actor }}"
