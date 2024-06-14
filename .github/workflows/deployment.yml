@@ -27,6 +27,15 @@ jobs:
       - name: print comment body
         run: echo ${{ github.event.release.body }}
 
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+          - name: print body
+            env:
+              BODY: ${{ github.event.comment.body }}
+            run: echo "$BODY"
+
       - name: Create Tracking Marker
         uses: newrelic/deployment-marker-action@v2.5.0
         with:
