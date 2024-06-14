@@ -14,6 +14,13 @@ jobs:
       - name: Set Release Version from Tag
         run: echo "RELEASE_VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
 
+      - name: Get PR comment
+        uses: actions-ecosystem/action-regex-match@v2
+        id: get-pr-comment
+        with:
+          text: ""${{ github.event.comment.body }}"
+          regex: '^(**Full Changelog**: )(.*)$'
+
       - name: Create Tracking Marker
         uses: newrelic/deployment-marker-action@v2.5.0
         with:
@@ -21,8 +28,8 @@ jobs:
           guid: ${{ secrets.NEW_RELIC_DEPLOYMENT_ENTITY_GUID_CP }}
           version: "${{ env.RELEASE_VERSION }}"
           commit: "${{ github.sha }}"
-          changelog: "https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md"
+          changelog: "${{ steps.get-pr-comment.outputs.group2 }}"
           region: "EU"
-          description: "${{ github.event.release.body }}"
+          description: "Deployment of version ${{ env.RELEASE_VERSION }}"
           deploymentType: "ROLLING"
           user: "${{ github.actor }}"
