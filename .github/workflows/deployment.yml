@@ -24,6 +24,9 @@ jobs:
       - name: print PR comment
         run: echo "${{ steps.get-pr-comment.outputs.group2 }}"
 
+      - name: print PR comment
+        run: echo "${{ steps.get-pr-comment.outputs }}"
+
       - name: print comment body
         run: echo ${{ github.event.release.body }}
 
