@@ -21,9 +21,6 @@ jobs:
           text: ${{ github.event.release.body }}
           regex: '^(?:\*\*Full Changelog\*\*: )(.*)$'
 
-      - name: print comment body
-        run: echo ${{ github.event.release.body }}
-
       - name: Create Tracking Marker
         uses: newrelic/deployment-marker-action@v2.5.0
         with:
