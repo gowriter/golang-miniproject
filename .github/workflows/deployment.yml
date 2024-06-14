@@ -20,30 +20,9 @@ jobs:
         with:
           text: ${{ github.event.release.body }}
           regex: '^(?:\*\*Full Changelog\*\*: )(.*)$'
-      - name: print PR comment 1
-        run: echo "${{ steps.get-pr-comment.outputs.group1 }}"
-
-      - name: print PR comment 2
-        run: echo "${{ steps.get-pr-comment.outputs.group2 }}"
-
-      - name: print PR comment 3
-        run: echo "${{ steps.get-pr-comment.outputs.group3 }}"
-
-      - name: print PR comment
-        run: echo "${{ steps.get-pr-comment.outputs.group }}"
 
       - name: print comment body
         run: echo ${{ github.event.release.body }}
-
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
-      - name: print body
-        env:
-          BODY: ${{ github.event.comment.body }}
-        run: echo "$BODY"
 
       - name: Create Tracking Marker
         uses: newrelic/deployment-marker-action@v2.5.0
@@ -52,7 +31,7 @@ jobs:
           guid: ${{ secrets.NEW_RELIC_DEPLOYMENT_ENTITY_GUID_CP }}
           version: "${{ env.RELEASE_VERSION }}"
           commit: "${{ github.sha }}"
-          changelog: "${{ steps.get-pr-comment.outputs.group2 }}"
+          changelog: "${{ steps.get-pr-comment.outputs.group1 }}"
           region: "EU"
           description: "Deployment of version ${{ env.RELEASE_VERSION }}"
           deploymentType: "ROLLING"
