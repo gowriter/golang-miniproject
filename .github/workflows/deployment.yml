@@ -19,7 +19,13 @@ jobs:
         id: get-pr-comment
         with:
           text: "${{ github.event.comment.body }}"
-          regex: '/^(?:\*\*Full Changelog\*\*: )(.*)$'
+          regex: '^(?:\*\*Full Changelog\*\*: )(.*)$'
+
+      - name: print PR comment
+        run: echo "${{ steps.get-pr-comment.outputs.group2 }}"
+
+      - name: print comment body
+        run: echo "${{ github.event.comment.body }}"
 
       - name: Create Tracking Marker
         uses: newrelic/deployment-marker-action@v2.5.0
