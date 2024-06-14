@@ -18,7 +18,7 @@ jobs:
         uses: actions-ecosystem/action-regex-match@v2
         id: get-pr-comment
         with:
-          text: ""${{ github.event.comment.body }}"
+          text: "${{ github.event.comment.body }}"
           regex: '^(**Full Changelog**: )(.*)$'
 
       - name: Create Tracking Marker
